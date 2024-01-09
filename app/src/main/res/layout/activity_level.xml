@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".Level">
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/vector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:onClick="Back"
+        />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        app:lottie_rawRes="@raw/level_anim"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txt_beg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true"
+        />
+
+    <TextView
+        android:id="@+id/txt_beg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beginner"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:fontFamily="@font/nunito_sans_light"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txt_inter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="256dp"
+        android:layout_height="46dp"
+        android:background="@drawable/solid_button"
+        android:text="Start Quiz"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extralight"
+        app:layout_constraintTop_toBottomOf="@id/txt_beg"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="StartQuiz"
+        />
+
+    <TextView
+        android:id="@+id/txt_inter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intermediate"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:fontFamily="@font/nunito_sans_light"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="256dp"
+        android:layout_height="46dp"
+        android:background="@drawable/solid_button"
+        android:text="Start Quiz"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extralight"
+        app:layout_constraintTop_toBottomOf="@id/txt_inter"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="StartQuiz"
+        />
+
+    <TextView
+        android:id="@+id/txt_pro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Proficient"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:fontFamily="@font/nunito_sans_light"
+        app:layout_constraintTop_toBottomOf="@id/txt_inter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="256dp"
+        android:layout_height="46dp"
+        android:background="@drawable/solid_button"
+        android:text="Start Quiz"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito_extralight"
+        app:layout_constraintTop_toBottomOf="@id/txt_pro"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:onClick="StartQuiz"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    tools:context=".QuizActivity">
+
+<com.airbnb.lottie.LottieAnimationView
+    android:id="@+id/img_quiz"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:lottie_rawRes="@raw/quiz_anim"
+    app:lottie_autoPlay="true"
+    app:lottie_loop="true"
+    />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_timer_24"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_quiz"
+        />
+
+    <ProgressBar
+        android:id="@+id/timer"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginStart="35dp"
+        android:max="100"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="30dp"
+        android:progressDrawable="@drawable/timer_gradient"
+        android:progress="100"
+        app:layout_constraintTop_toBottomOf="@id/img_quiz"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timer"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/ques"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        android:text="One or two lines having question"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="18dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/nunito_sans_light"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/option1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Option 1"
+        android:background="@drawable/trans_button"
+        app:layout_constraintTop_toBottomOf="@id/ques"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/option2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Option 2"
+        android:background="@drawable/trans_button"
+        app:layout_constraintTop_toBottomOf="@id/option1"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/option3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Option 3"
+        android:background="@drawable/trans_button"
+        app:layout_constraintTop_toBottomOf="@id/option2"
+        />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/option4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Option 4"
+        android:background="@drawable/trans_button"
+        app:layout_constraintTop_toBottomOf="@id/option3"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/solid_button"
+        android:text="Next"
+        android:textAlignment="center"
+        android:textColor="@color/bg_color"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@id/option4"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
