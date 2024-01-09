@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Quizzo</string>
+    <string name="are_you_a_movie_maven_or_just_a_popcorn_enthusiast">Are you a Movie Maven or just a popcorn enthusiast?</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="are_you_a_tech_whiz_or_just_pressing_buttons">Are you a Tech Whiz or just pressing buttons?</string>
 </resources>
