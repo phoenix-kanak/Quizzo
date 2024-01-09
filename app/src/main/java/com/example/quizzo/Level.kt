@@ -33,11 +33,11 @@ class Level : AppCompatActivity() {
                 intent.addCategory(Intent.CATEGORY_HOME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
+                finish()
             })
             .setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
-              //  super.onBackPressed()
+
             })
             .show()
-       // super.onBackPressed()
     }
 }
