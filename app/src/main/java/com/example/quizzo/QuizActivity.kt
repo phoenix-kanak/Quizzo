@@ -1,16 +1,19 @@
 package com.example.quizzo
 
+import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.ImageView
 import android.widget.ProgressBar
+import androidx.appcompat.app.AlertDialog
 import java.util.ArrayList
 
 class QuizActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var countDownTimer: CountDownTimer
-    private lateinit var ques: ArrayList<QuestionModel>
+//    private lateinit var ques: ArrayList<QuestionModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -18,9 +21,6 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
 
         progressBar = findViewById(R.id.timer)
-        val quesImage=findViewById<ImageView>(R.id.imageView)
-        quesImage.setBackgroundResource(R.drawable.vector)
-
 
         // Set the total time for the timer in milliseconds (e.g., 10 seconds)
         val totalTimeInMillis: Long = 10000

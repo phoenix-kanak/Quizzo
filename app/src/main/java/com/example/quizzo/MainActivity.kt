@@ -14,10 +14,12 @@ class MainActivity : AppCompatActivity() {
     fun PlayNow(view: View) {
         val i= Intent(this,Level::class.java)
         startActivity(i)
+        finish()
     }
 
     fun About(view: View) {
         val i= Intent(this,AboutActivity::class.java)
         startActivity(i)
+        finish()
     }
 }
