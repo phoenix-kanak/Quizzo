@@ -89,16 +89,19 @@ class MovieQuizActivity : AppCompatActivity() {
         binding.next.setOnClickListener{
             if(count==5){
                 var i=0
-                var score=0
+                var score: Int =0
                 while(i<5){
                     if(response[i] == answer[i]){
                         score+=10
                     }
                     i++
                 }
+
                 val intent=Intent(this,ResultActivity::class.java)
-                intent.putExtra("Score",score )
+                intent.putExtra("Score",score.toString() )
+              //  Log.e("Score123" , "$score")
                 startActivity(intent)
+                finish()
             }
             if(!buttonClicked){
                 Toast.makeText(this , "Please select an option" , Toast.LENGTH_SHORT).show()

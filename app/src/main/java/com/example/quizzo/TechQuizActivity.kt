@@ -107,9 +107,12 @@ class TechQuizActivity : AppCompatActivity() {
                     i++
                 }
                 val intent=Intent(this,ResultActivity::class.java)
-                intent.putExtra("Score",score )
+                intent.putExtra("Score",score.toString() )
+             //   Log.e("Score123" , "$score" )
                 startActivity(intent)
+                finish()
             }
+
             if(!buttonClicked){
                 Toast.makeText(this , "Please select an option" , Toast.LENGTH_SHORT).show()
             }else {
