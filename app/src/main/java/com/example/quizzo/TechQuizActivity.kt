@@ -1,5 +1,6 @@
 package com.example.quizzo
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -147,16 +148,18 @@ class TechQuizActivity : AppCompatActivity() {
                 builder.setMessage("Oops time finished")
                 builder.setNegativeButton("See the score") { dialog, which ->
                     dialog.dismiss()
+                    val intent=Intent(this@TechQuizActivity,ResultActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
                 val dialog = builder.create()
                 dialog.show()
-
             }
         }
 
-        // Start the timer
+// Start the timer
         countDownTimer.start()
+
 
     }
     private fun nextQues(count: Int) {
@@ -171,5 +174,28 @@ class TechQuizActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         countDownTimer.cancel()
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+
+            .setTitle("Exit")
+
+            .setMessage("Are you sure?")
+
+            .setPositiveButton("Yes", DialogInterface.OnClickListener {
+                    dialog, which ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent. CATEGORY_HOME )
+                intent. flags  = Intent. FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            } )
+
+            .setNegativeButton(
+                "No",
+                DialogInterface.OnClickListener { dialog, which ->
+
+                }).show()
     }
 }
