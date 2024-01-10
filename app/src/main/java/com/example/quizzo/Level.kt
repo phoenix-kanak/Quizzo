@@ -2,10 +2,10 @@ package com.example.quizzo
 
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 
 class Level : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +19,14 @@ class Level : AppCompatActivity() {
         finish()
     }
 
-    fun StartQuiz(view: View) {
-        val intent=Intent(this,QuizActivity::class.java)
+    fun StartMovieQuiz(view: View) {
+        val intent=Intent(this,MovieQuizActivity::class.java)
         startActivity(intent)
         //finish()
+    }
+    fun StartTechQuiz(view: View){
+        val intent=Intent(this,TechQuizActivity::class.java)
+        startActivity(intent)
     }
     override fun onBackPressed() {
         AlertDialog.Builder(this)

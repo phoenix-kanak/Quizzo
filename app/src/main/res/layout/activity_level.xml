@@ -53,12 +53,12 @@
         android:text="@string/start_quiz"
         android:textColor="@color/white"
         android:textSize="26sp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/nunito_extralight"
         app:layout_constraintTop_toBottomOf="@id/txt_beg"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:onClick="StartQuiz"
+        android:onClick="StartMovieQuiz"
         />
 
     <TextView
@@ -83,12 +83,12 @@
         android:text="@string/start_quiz"
         android:textColor="@color/white"
         android:textSize="26sp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/nunito_extralight"
         app:layout_constraintTop_toBottomOf="@id/txt_inter"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:onClick="StartQuiz"
+        android:onClick="StartTechQuiz"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

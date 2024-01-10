@@ -5,29 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
-    tools:context=".QuizActivity">
+    tools:context=".MovieQuizActivity">
 
-<com.airbnb.lottie.LottieAnimationView
-    android:id="@+id/img_quiz"
-    android:layout_width="120dp"
-    android:layout_height="120dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:lottie_rawRes="@raw/quiz_anim"
-    app:lottie_autoPlay="true"
-    app:lottie_loop="true"
-    />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/img_quiz"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/quiz_anim" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_timer_24"
-        android:layout_marginTop="25dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/baseline_timer_24"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_quiz"
-        />
+        app:layout_constraintTop_toBottomOf="@id/img_quiz" />
 
     <ProgressBar
         android:id="@+id/timer"
@@ -35,77 +33,75 @@
         android:layout_width="match_parent"
         android:layout_height="15dp"
         android:layout_marginStart="35dp"
-        android:max="100"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="30dp"
-        android:progressDrawable="@drawable/timer_gradient"
+        android:layout_marginEnd="16dp"
+        android:max="100"
         android:progress="100"
-        app:layout_constraintTop_toBottomOf="@id/img_quiz"
-        app:layout_constraintRight_toRightOf="parent"
+        android:progressDrawable="@drawable/timer_gradient"
         app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_quiz" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="40dp"
+        android:src="@drawable/mocambo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer"
-        android:src="@drawable/mocambo" />
+        app:layout_constraintTop_toBottomOf="@+id/timer" />
 
     <TextView
         android:id="@+id/ques"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView"
-        android:text="One or two lines having questionvmrtkrtjvomvktlrgmvoktrlgv4otlkrmcgoitgeiocmgoergcmeriogcmermcirgmcreigmcerigmerigmcgcmergirmegiermcgiermg"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="18dp"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:layout_marginHorizontal="5dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito_sans_light"
-        />
+        android:text="One or two lines having questionvmrtkrtjvomvktlrgmvoktrlgv4otlkrmcgoitgeiocmgoergcmeriogcmermcirgmcreigmcerigmerigmcgcmergirmegiermcgiermg"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/option1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@drawable/trans_button"
         android:text="Option 1"
         android:textAllCaps="false"
-        android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@drawable/trans_button"
-        app:layout_constraintTop_toBottomOf="@id/ques"
-        />
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/ques" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/option2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@drawable/trans_button"
         android:text="Option 2"
         android:textAllCaps="false"
-        android:textSize="18sp"
         android:textColor="@color/white"
-        android:background="@drawable/trans_button"
-        app:layout_constraintTop_toBottomOf="@id/option1"
-        />
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/option1" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/option3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:background="@drawable/trans_button"
         android:text="Option 3"
-        android:textSize="18sp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:background="@drawable/trans_button"
-        app:layout_constraintTop_toBottomOf="@id/option2"
-        />
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/option2" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/next"
@@ -117,8 +113,7 @@
         android:textAlignment="center"
         android:textColor="@color/bg_color"
         android:textSize="25sp"
-        app:layout_constraintTop_toBottomOf="@id/option3"
-        />
+        app:layout_constraintTop_toBottomOf="@id/option3" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

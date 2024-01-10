@@ -1,33 +1,43 @@
 package com.example.quizzo
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Button
-import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.quizzo.databinding.ActivityQuizBinding
+import com.example.quizzo.databinding.ActivityQuizMovieBinding
 import com.example.quizzo.models.QuestionModel
-import org.w3c.dom.Text
-import java.util.ArrayList
 
-class QuizActivity : AppCompatActivity() {
+
+class MovieQuizActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var list: ArrayList<QuestionModel>
-    private lateinit var binding: ActivityQuizBinding
+    private lateinit var binding: ActivityQuizMovieBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        binding = ActivityQuizBinding.inflate(layoutInflater)
+        binding = ActivityQuizMovieBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
         list= ArrayList<QuestionModel>()
+
+        var count:Int=1
+        var buttonClicked:Boolean=false
+        val response:ArrayList<Int> = ArrayList()
+        val answer:ArrayList<Int> = ArrayList()
+        answer.add(2)
+        answer.add(1)
+        answer.add(2)
+        answer.add(3)
+        answer.add(1)
+
+
 
         list.add(QuestionModel(R.drawable.harry_potter,
             "Which actress portrayed Hermione Granger in the Harry Potter film series?" ,
@@ -35,9 +45,9 @@ class QuizActivity : AppCompatActivity() {
             "Emma Watson" ,
             "Emma Roberts"))
         list.add(QuestionModel(R.drawable.money_heist ,
-            "In famous series \"Money Heist\" (La Casa de Papel), the members of the heist crew adopt code names to conceal their true identities. What was its basis?" ,
-            "Actors" ,
+            "In famous series \"Money Heist\",on what basis the heist crew adopted code names?" ,
             "Cities" ,
+            "Actors" ,
             "Planets"))
         list.add(QuestionModel(R.drawable.mocambo ,
             "The famous dialogue: \"Mogambo khush hua\" is a line from which Bollywood film?" ,
@@ -55,18 +65,48 @@ class QuizActivity : AppCompatActivity() {
             "Aur ab kuch nhi ho pa rha hai" ,
             "Ab majboori zarurat ban gayi hai"))
 
-//        val image=findViewById<ImageView>(R.id.imageView)
-//        val ques=findViewById<TextView>(R.id.ques)
-//        val option1=findViewById<Button>(R.id.option1)
-//        val option2=findViewById<Button>(R.id.option2)
-//        val option3=findViewById<Button>(R.id.option3)
         binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[0].image))
-        binding.ques.setText( list[0].ques)
-        binding.option1.setText (list[0].option1)
-        binding.option2.setText (list[0].option2)
-        binding.option3.setText ( list[0].option3)
+        binding.ques.text = list[0].ques
+        binding.option1.text = list[0].option1
+        binding.option2.text = list[0].option2
+        binding.option3.text = list[0].option3
+
+        binding.option1.setOnClickListener {
+            response.add(1)
+            buttonClicked=true
+        }
+        binding.option2.setOnClickListener {
+            response.add(2)
+            buttonClicked=true
+        }
+        binding.option3.setOnClickListener {
+            response.add(3)
+            buttonClicked=true
+        }
 
 
+
+        binding.next.setOnClickListener{
+            if(count==5){
+                var i:Int=0
+                var number:Int=0
+                while(i<5){
+                    if(response[i] == answer[i]){
+                        ++number
+                    }
+                    i++
+                }
+                startActivity(Intent(this , ResultActivity::class.java))
+            }
+            if(!buttonClicked){
+                Toast.makeText(this , "Please select an option" , Toast.LENGTH_SHORT).show()
+            }else {
+                nextQues(count)
+                ++count
+                countDownTimer.start()
+                buttonClicked=false
+            }
+        }
 
         progressBar = binding.timer
 
@@ -87,7 +127,7 @@ class QuizActivity : AppCompatActivity() {
 
                 //progressBar.progress = 0
 
-                val builder = AlertDialog.Builder(this@QuizActivity)
+                val builder = AlertDialog.Builder(this@MovieQuizActivity)
                 builder.setTitle("Time Over!")
                 builder.setMessage("Oops time finished")
                 builder.setNegativeButton("See the score") { dialog, which ->
@@ -104,9 +144,17 @@ class QuizActivity : AppCompatActivity() {
         countDownTimer.start()
     }
 
+    private fun nextQues(count: Int) {
+        binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
+        binding.ques.text = list[count].ques
+        binding.option1.text = list[count].option1
+        binding.option2.text = list[count].option2
+        binding.option3.text = list[count].option3
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
-        // Cancel the timer to avoid memory leaks
         countDownTimer.cancel()
     }
 }

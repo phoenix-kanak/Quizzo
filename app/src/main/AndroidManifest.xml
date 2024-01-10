@@ -13,10 +13,16 @@
         android:theme="@style/Theme.Quizzo"
         tools:targetApi="31">
         <activity
+            android:name=".TechQuizActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".QuizActivity"
+            android:name=".MovieQuizActivity"
             android:exported="false" />
         <activity
             android:name=".Level"
