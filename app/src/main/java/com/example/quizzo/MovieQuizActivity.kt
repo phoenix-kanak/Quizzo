@@ -88,15 +88,17 @@ class MovieQuizActivity : AppCompatActivity() {
 
         binding.next.setOnClickListener{
             if(count==5){
-                var i:Int=0
-                var number:Int=0
+                var i=0
+                var score=0
                 while(i<5){
                     if(response[i] == answer[i]){
-                        ++number
+                        score+=10
                     }
                     i++
                 }
-                startActivity(Intent(this , ResultActivity::class.java))
+                val intent=Intent(this,ResultActivity::class.java)
+                intent.putExtra("Score",score )
+                startActivity(intent)
             }
             if(!buttonClicked){
                 Toast.makeText(this , "Please select an option" , Toast.LENGTH_SHORT).show()
