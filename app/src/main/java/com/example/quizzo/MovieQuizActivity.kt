@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -92,10 +91,10 @@ class MovieQuizActivity : AppCompatActivity() {
         )
 
         binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[0].image))
-        binding.ques.text = list[0].ques
-        binding.option1.text = list[0].option1
-        binding.option2.text = list[0].option2
-        binding.option3.text = list[0].option3
+        binding.ques.text = list[count].ques
+        binding.option1.text = list[count].option1
+        binding.option2.text = list[count].option2
+        binding.option3.text = list[count].option3
 
         binding.option1.setOnClickListener {
             selectOption(binding.option1)
@@ -123,22 +122,22 @@ class MovieQuizActivity : AppCompatActivity() {
             if (selectedOption?.id == R.id.option3) {
                 response.add(3)
             }
-
-            score = getScore(count)
-            if (count == 4) {
-                val intent = Intent(this, ResultActivity::class.java)
-                intent.putExtra("Score", score.toString())
-                Log.e("score123", score.toString())
-                startActivity(intent)
-                finish()
-            }
-            else if (selectedOption?.id == null) {
+            if (selectedOption == null) {
                 Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
-            } else {
-                ++count
-                nextQues(count)
-                countDownTimer.start()
-                //  buttonClicked = false
+            }else {
+                score = getScore(count)
+                if (count == 4) {
+                    val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("Score", score.toString())
+                    Log.e("score123", score.toString())
+                    startActivity(intent)
+                    finish()
+                } else {
+                    count++
+                    nextQues(count)
+                    countDownTimer.start()
+                    //  buttonClicked = false
+                }
             }
         }
 
@@ -189,8 +188,10 @@ class MovieQuizActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
         countDownTimer.start()
         selectedOption?.setBackgroundResource(R.drawable.trans_button)
+        selectedOption=null
         binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
         binding.ques.text = list[count].ques
         binding.option1.text = list[count].option1
