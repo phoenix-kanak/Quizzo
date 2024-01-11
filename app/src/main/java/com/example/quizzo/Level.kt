@@ -20,10 +20,12 @@ class Level : AppCompatActivity() {
     fun StartMovieQuiz(view: View) {
         val intent=Intent(this,MovieQuizActivity::class.java)
         startActivity(intent)
+        finish()
         //finish()
     }
     fun StartTechQuiz(view: View){
         val intent=Intent(this,TechQuizActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
