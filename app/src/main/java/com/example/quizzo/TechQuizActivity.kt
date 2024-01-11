@@ -4,6 +4,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,22 +19,29 @@ class TechQuizActivity : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var list: ArrayList<QuestionModel>
     private lateinit var binding: ActivityTechQuizBinding
-
+    private var selectedOption: Button? = null
+    private val response: ArrayList<Int> = ArrayList()
+    private val answer: ArrayList<Int> = ArrayList()
+    private var score: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTechQuizBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
 
-        var count:Int=1
-        var buttonClicked:Boolean=false
-        val response:ArrayList<Int> = ArrayList()
-        val answer:ArrayList<Int> = ArrayList()
+        var count: Int = 0
+     //   var buttonClicked: Boolean = false
+        list = ArrayList<QuestionModel>()
 
-        list= ArrayList<QuestionModel>()
+        answer.add(3)
+        answer.add(2)
+        answer.add(3)
+        answer.add(1)
+        answer.add(1)
 
         list.add(
-            QuestionModel(R.drawable.swift_logo,
+            QuestionModel(
+                R.drawable.swift_logo,
                 "Guess the programming language with its logo.",
                 "Java",
                 "Ruby",
@@ -40,15 +49,17 @@ class TechQuizActivity : AppCompatActivity() {
             )
         )
         list.add(
-            QuestionModel(R.drawable.proramming_language,
-            "Which of the following is not an object oriented programming language?",
-            "Python",
+            QuestionModel(
+                R.drawable.proramming_language,
+                "Which of the following is not an object oriented programming language?",
+                "Python",
                 "C",
                 "C++"
             )
         )
         list.add(
-            QuestionModel(R.drawable.kotlin_mascot,
+            QuestionModel(
+                R.drawable.kotlin_mascot,
                 "Which programming language to this mascot belongs?",
                 "Java",
                 "GoLang",
@@ -57,7 +68,8 @@ class TechQuizActivity : AppCompatActivity() {
         )
 
         list.add(
-            QuestionModel(R.drawable.google_maps,
+            QuestionModel(
+                R.drawable.google_maps,
                 "Google Maps is an application of which data structure?",
                 "Graphs",
                 "Arrays",
@@ -65,7 +77,8 @@ class TechQuizActivity : AppCompatActivity() {
             )
         )
         list.add(
-            QuestionModel(R.drawable.gaming_language ,
+            QuestionModel(
+                R.drawable.gaming_language,
                 "Which of the following language is used as scripting language for gaming apps?",
                 "C#",
                 "Javascript",
@@ -73,54 +86,54 @@ class TechQuizActivity : AppCompatActivity() {
             )
         )
 
-        binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[0].image))
-        binding.ques.text = list[0].ques
-        binding.option1.text = list[0].option1
-        binding.option2.text = list[0].option2
-        binding.option3.text = list[0].option3
+        binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
+        binding.ques.text = list[count].ques
+        binding.option1.text = list[count].option1
+        binding.option2.text = list[count].option2
+        binding.option3.text = list[count].option3
 
         binding.option1.setOnClickListener {
-            response.add(1)
-            buttonClicked=true
+            selectOption(binding.option1)
+//            response.add(1)
+//            buttonClicked = true
         }
         binding.option2.setOnClickListener {
-            response.add(2)
-            buttonClicked=true
+            selectOption(binding.option2)
+//            response.add(2)
+//            buttonClicked = true
         }
         binding.option3.setOnClickListener {
-            response.add(3)
-            buttonClicked=true
+            selectOption(binding.option3)
+//            response.add(3)
+//            buttonClicked = true
         }
-        answer.add(3)
-        answer.add(2)
-        answer.add(3)
-        answer.add(1)
-        answer.add(1)
 
-        binding.next.setOnClickListener{
-            if(count==5){
-                var i:Int=0
-                var score:Int=0
-                while(i<5){
-                    if(response[i] == answer[i]){
-                        score+=10
-                    }
-                    i++
-                }
-                val intent=Intent(this,ResultActivity::class.java)
-                intent.putExtra("Score",score.toString() )
-             //   Log.e("Score123" , "$score" )
-                startActivity(intent)
-                finish()
+        binding.next.setOnClickListener {
+            if (selectedOption?.id == R.id.option1) {
+                response.add(1)
             }
-
-            if(!buttonClicked){
-                Toast.makeText(this , "Please select an option" , Toast.LENGTH_SHORT).show()
-            }else {
-                nextQues(count)
-                ++count
-                countDownTimer.start()
-                buttonClicked=false
+            if (selectedOption?.id == R.id.option2) {
+                response.add(2)
+            }
+            if (selectedOption?.id == R.id.option3) {
+                response.add(3)
+            }
+            if (selectedOption == null) {
+                Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
+            } else {
+                score = getScore(count)
+                if (count == 4) {
+                    val intent = Intent(this, ResultActivity::class.java)
+                    intent.putExtra("Score", score.toString())
+                    Log.e("score123", score.toString())
+                    startActivity(intent)
+                    finish()
+                } else {
+                    count++
+                    nextQues(count)
+                    countDownTimer.start()
+                    //  buttonClicked = false
+                }
             }
         }
 
@@ -139,30 +152,46 @@ class TechQuizActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                // Do something when the timer finishes
-
-                //progressBar.progress = 0
-
-                val builder = AlertDialog.Builder(this@TechQuizActivity)
-                builder.setTitle("Time Over!")
-                builder.setMessage("Oops time finished")
-                builder.setNegativeButton("See the score") { dialog, which ->
-                    dialog.dismiss()
-                    val intent=Intent(this@TechQuizActivity,ResultActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-                val dialog = builder.create()
-                dialog.show()
+                response.add(0)
+                getScore(count)
+                nextQues(++count)
             }
         }
 
-// Start the timer
+        // Start the timer
         countDownTimer.start()
 
 
     }
+
+    private fun selectOption(optionButton: Button) {
+        // Reset the background color for the previously selected option
+        //  selectedOption=null
+        selectedOption?.setBackgroundResource(R.drawable.trans_button)
+        // Set the background color for the newly selected option
+        optionButton.setBackgroundResource(R.drawable.solid_button)
+        selectedOption = optionButton
+    }
+
+    private fun getScore(count: Int): Int {
+        if (response[count] == answer[count]) {
+            score += 10
+        }
+        return score
+    }
+
     private fun nextQues(count: Int) {
+        if (count == 5) {
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("Score", score.toString())
+            Log.e("score123", score.toString())
+            startActivity(intent)
+            finish()
+        }
+
+        countDownTimer.start()
+        selectedOption?.setBackgroundResource(R.drawable.trans_button)
+        selectedOption = null
         binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
         binding.ques.text = list[count].ques
         binding.option1.text = list[count].option1
@@ -177,25 +206,14 @@ class TechQuizActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(this)
-
-            .setTitle("Exit")
-
-            .setMessage("Are you sure?")
-
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                    dialog, which ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent. CATEGORY_HOME )
-                intent. flags  = Intent. FLAG_ACTIVITY_NEW_TASK
+        AlertDialog.Builder(this).setTitle("Exit").setMessage("Are you sure?")
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(this@TechQuizActivity, Level::class.java)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
-            } )
-
-            .setNegativeButton(
-                "No",
-                DialogInterface.OnClickListener { dialog, which ->
-
-                }).show()
+            }).setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
+            }).show()
     }
 }

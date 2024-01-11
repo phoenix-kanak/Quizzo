@@ -90,7 +90,7 @@ class MovieQuizActivity : AppCompatActivity() {
             )
         )
 
-        binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[0].image))
+        binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
         binding.ques.text = list[count].ques
         binding.option1.text = list[count].option1
         binding.option2.text = list[count].option2
