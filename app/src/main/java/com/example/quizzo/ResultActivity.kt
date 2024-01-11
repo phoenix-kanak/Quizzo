@@ -7,7 +7,7 @@ import com.example.quizzo.databinding.ActivityResultBinding
 
 class ResultActivity : AppCompatActivity() {
     private lateinit var binding: ActivityResultBinding
-//    companion object{
+    //    companion object{
 //        const val Intent_Score="Score"
 //    }
     @SuppressLint("SetTextI18n")
@@ -19,7 +19,7 @@ class ResultActivity : AppCompatActivity() {
 
         val score=intent.getStringExtra("Score")
         binding.score.text= "$score/50"
-     //   Log.e("Score123" , score)
+        //   Log.e("Score123" , score)
 
     }
 }

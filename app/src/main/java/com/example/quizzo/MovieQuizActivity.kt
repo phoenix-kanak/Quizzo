@@ -4,7 +4,9 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -19,6 +21,7 @@ class MovieQuizActivity : AppCompatActivity() {
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var list: ArrayList<QuestionModel>
     private lateinit var binding: ActivityQuizMovieBinding
+    private var selectedOption: Button? = null
     val response: ArrayList<Int> = ArrayList()
     val answer: ArrayList<Int> = ArrayList()
     var score: Int = 0
@@ -33,16 +36,14 @@ class MovieQuizActivity : AppCompatActivity() {
         list = ArrayList<QuestionModel>()
 
 
-        var count: Int = 1
-        var buttonClicked: Boolean = false
+        var count: Int = 0
+        // var buttonClicked: Boolean = false
 
         answer.add(2)
         answer.add(1)
         answer.add(2)
         answer.add(3)
         answer.add(1)
-
-
 
         list.add(
             QuestionModel(
@@ -97,50 +98,55 @@ class MovieQuizActivity : AppCompatActivity() {
         binding.option3.text = list[0].option3
 
         binding.option1.setOnClickListener {
-            response.add(1)
-            getScore(count)
-            buttonClicked = true
+            selectOption(binding.option1)
+//            response.add(1)
+//            buttonClicked = true
         }
         binding.option2.setOnClickListener {
-            response.add(2)
-            getScore(count)
-            buttonClicked = true
+            selectOption(binding.option2)
+//            response.add(2)
+//            buttonClicked = true
         }
         binding.option3.setOnClickListener {
-            response.add(3)
-            getScore(count)
-            buttonClicked = true
+            selectOption(binding.option3)
+//            response.add(3)
+//            buttonClicked = true
         }
 
-
-
         binding.next.setOnClickListener {
-            if (count == 5) {
-                score = getScore(count)
+            if (selectedOption?.id == R.id.option1) {
+                response.add(1)
+            }
+            if (selectedOption?.id == R.id.option2) {
+                response.add(2)
+            }
+            if (selectedOption?.id == R.id.option3) {
+                response.add(3)
+            }
 
+            score = getScore(count)
+            if (count == 4) {
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("Score", score.toString())
-                //  Log.e("Score123" , "$score")
+                Log.e("score123", score.toString())
                 startActivity(intent)
                 finish()
             }
-            if (!buttonClicked) {
+            else if (selectedOption?.id == null) {
                 Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show()
             } else {
-                nextQues(count)
                 ++count
+                nextQues(count)
                 countDownTimer.start()
-                buttonClicked = false
+                //  buttonClicked = false
             }
         }
 
         progressBar = binding.timer
 
-        // Set the total time for the timer in milliseconds (e.g., 10 seconds)
-        val totalTimeInMillis: Long = 10000
+        val totalTimeInMillis: Long = 10000   // Set the total time for the timer in milliseconds (e.g., 10 seconds)
+        val intervalInMillis: Long = 100      // Set the interval for updating the progress bar in milliseconds (e.g., 100 milliseconds)
 
-        // Set the interval for updating the progress bar in milliseconds (e.g., 100 milliseconds)
-        val intervalInMillis: Long = 100
 
         countDownTimer = object : CountDownTimer(totalTimeInMillis, intervalInMillis) {
             override fun onTick(millisUntilFinished: Long) {
@@ -149,35 +155,9 @@ class MovieQuizActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                // Do something when the timer finishes
-
-                //progressBar.progress = 0
-
-                val builder = AlertDialog.Builder(this@MovieQuizActivity)
-                builder.setTitle("Time Over!")
-                builder.setMessage("Oops time finished")
-                builder.setNegativeButton("See the score") { dialog, which ->
-                    dialog.dismiss()
-                    val intent = Intent(this@MovieQuizActivity, ResultActivity::class.java)
-                    intent.putExtra("Score", score.toString())
-                    //  Log.e("Score123" , "$score")
-                    startActivity(intent)
-                    finish()
-                }
-
-                val dialog = builder.create()
-                dialog.show()
-                val mainLayout =
-                    findViewById<View>(R.id.activity_movie) // Replace with your actual layout ID
-                mainLayout.setOnClickListener {
-                    startActivity(Intent(this@MovieQuizActivity, ResultActivity::class.java))
-                    getScore(count)
-                    val intent = Intent(this@MovieQuizActivity, ResultActivity::class.java)
-                    intent.putExtra("Score", score.toString())
-                    //  Log.e("Score123" , "$score")
-                    startActivity(intent)
-                    finish()
-                }
+                response.add(0)
+                getScore(count)
+                nextQues(++count)
             }
         }
 
@@ -185,18 +165,32 @@ class MovieQuizActivity : AppCompatActivity() {
         countDownTimer.start()
     }
 
+    private fun selectOption(optionButton: Button) {
+        // Reset the background color for the previously selected option
+      //  selectedOption=null
+        selectedOption?.setBackgroundResource(R.drawable.trans_button)
+        // Set the background color for the newly selected option
+        optionButton.setBackgroundResource(R.drawable.solid_button)
+        selectedOption = optionButton
+    }
+
     private fun getScore(count: Int): Int {
-        var i = 0
-        while (i < count) {
-            if (response[i] == answer[i]) {
-                score += 10
-            }
-            i++
+        if (response[count] == answer[count]) {
+            score += 10
         }
         return score
     }
 
     private fun nextQues(count: Int) {
+        if(count==5){
+            val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("Score", score.toString())
+            Log.e("score123", score.toString())
+            startActivity(intent)
+            finish()
+        }
+        countDownTimer.start()
+        selectedOption?.setBackgroundResource(R.drawable.trans_button)
         binding.imageView.setImageDrawable(ContextCompat.getDrawable(this, list[count].image))
         binding.ques.text = list[count].ques
         binding.option1.text = list[count].option1
@@ -212,24 +206,16 @@ class MovieQuizActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         AlertDialog.Builder(this)
-
             .setTitle("Exit")
-
             .setMessage("Are you sure?")
-
-            .setPositiveButton("Yes", DialogInterface.OnClickListener {
-                dialog, which ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent. CATEGORY_HOME )
-                intent. flags  = Intent. FLAG_ACTIVITY_NEW_TASK
+            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(this@MovieQuizActivity,Level::class.java)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
-            } )
-
-            .setNegativeButton(
-                "No",
-                DialogInterface.OnClickListener {  dialog, which ->
-
-                }).show()
+            })
+            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
+            }).show()
     }
 }

@@ -1,10 +1,8 @@
 package com.example.quizzo
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
 class Level : AppCompatActivity() {
@@ -27,21 +25,5 @@ class Level : AppCompatActivity() {
     fun StartTechQuiz(view: View){
         val intent=Intent(this,TechQuizActivity::class.java)
         startActivity(intent)
-    }
-    override fun onBackPressed() {
-        AlertDialog.Builder(this)
-            .setTitle("Exit")
-            .setMessage("Are you sure?")
-            .setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, which ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            })
-            .setNegativeButton("No", DialogInterface.OnClickListener { dialog, which ->
-
-            })
-            .show()
     }
 }
